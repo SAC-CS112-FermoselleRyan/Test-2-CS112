@@ -1,0 +1,199 @@
+//class 1
+class DiceResults {
+
+	
+	public abstract static class DiceResult
+	{
+	private int userWins;
+	private int userLosses;
+	public DiceResult()
+	{
+	clearResult();
+	}
+	public DiceResult(int wins)
+	{
+	userWins = wins;
+	userLosses = 0;
+	}
+	public DiceResult(int wins, int losses)
+	{
+	userWins = wins;
+	userLosses = losses;
+	}
+	public void clearResult()
+	{
+	userWins = 0;
+	userLosses = 0;
+	}
+	public void astablishWins()
+	{
+	userWins++;
+	}
+	public void astablishLoses()
+	{
+	userLosses++;
+	}
+	public void setUserWins(int i)
+	{
+	userWins = i;
+	}
+	public int getUserWins()
+	{
+	return userWins;
+	}
+	public void setUserLosses(int i)
+	{
+	userLosses = i;
+	}
+	public int getUserLosses()
+	{
+	return userLosses;
+	}
+	public enum DiceGet
+	{
+	WIN, LOSS, TIE
+	}
+	public abstract void Play();
+	public static int randNumber(int lo, int hi)
+	{
+	return lo + (int)(Math.random() * hi);
+	}
+	}
+
+	public void PlayGame() {
+		
+		
+	}
+	 
+	
+}
+
+
+
+
+
+//class 2
+
+
+import java.util.Scanner;
+
+public class DiceGuessGame extends DiceResults {
+
+	private int value;
+	private int numberOfThrows;
+	private int numberOfDie;
+	//Constructor
+	public DiceGuessGame(){
+		
+		clearDiceResult();
+		value = 0;
+		numberOfThrows = 0;
+		numberOfDie = 1;
+			
+	}
+	
+	public DiceGuessGame(int Amount){
+		
+	    clearResult();
+		value = 0;
+		numberOfThrows = 0;
+		numberOfDie = Amount;
+		
+		
+	}
+	
+	private void clearResult() {
+		
+		
+	}
+
+	public int getvalue(){
+		
+		return value;
+		
+	}
+	
+	public int getnumberOfThrows(){
+		
+		return numberOfThrows;
+	}
+	
+	public void ThrowDie(){
+		
+		value = 0;
+		numberOfThrows++;
+		
+		for (int i = 0; i < numberOfDie; i++)
+			value += randNumber(1, 6);
+		
+	}
+	
+	@Override
+	public void PlayGame(){
+	
+		Scanner scan = new Scanner(System.in);
+		do
+		{
+			System.out.println("Place HIGH Bet? [true/false]: ");
+			boolean high = scan.nextBoolean();
+		
+		ThrowDie();
+		System.out.println("The dices value is:"+ getvalue());
+		System.out.println("The dice has been thrown!"+ getnumberOfThrows() + "How many times");
+			
+		if (getvalue() >= ((numberOfDie*6/2) +1) && high){
+			
+			astablishWins();
+			System.out.println("YOU WIN!");
+			
+		}
+		else if (getvalue() <= ((numberOfDie*6/2)) && !high){
+			
+			astablishWins();
+			System.out.println("YOU WIN!");
+			
+			
+		}
+		else{
+			
+			astablishLoses();
+			System.out.println("YOU Lose!!!");
+			
+		}
+			System.out.println("Want to play again? [true/false]: ");
+			
+		}while (scan.nextBoolean());
+		
+	}
+
+	
+	
+	
+}
+
+//class 3
+
+
+
+public class Game {
+
+public static void main(String[] args)
+{
+DiceGuessGame
+oneDiceTest = new DiceGuessGame();
+oneDiceTest.PlayGame();
+DiceGuessGame
+twoDieTest = new DiceGuessGame(2);
+twoDieTest.PlayGame();
+DiceGuessGame
+threeDieTest = new DiceGuessGame(3);
+threeDieTest.PlayGame();
+}
+}
+	
+/* The Object Oriented programming material
+ * that is used to do this program:
+ * Inheritance
+ * Dynamic Polymorphism
+ * and constructors
+ */
